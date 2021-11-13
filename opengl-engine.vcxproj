@@ -75,7 +75,7 @@
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>C:\Users\lachi\dev\freetype-2.11.0\include;C:\Users\lachi\dev\tinyobjloader;C:\Users\lachi\dev\glm;C:\Users\lachi\dev\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\lachi\dev\stb;C:\Users\lachi\dev\glfw-3.3.4.bin.WIN64\include;C:\Users\lachi\dev\freetype-2.11.0\include;C:\Users\lachi\dev\tinyobjloader;C:\Users\lachi\dev\glm;C:\Users\lachi\dev\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <TargetMachine>MachineX86</TargetMachine>
@@ -91,7 +91,7 @@
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>C:\Users\lachi\dev\freetype-2.11.0\include;C:\Users\lachi\dev\tinyobjloader;C:\Users\lachi\dev\glm;C:\Users\lachi\dev\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\lachi\dev\stb;C:\Users\lachi\dev\glfw-3.3.4.bin.WIN64\include;C:\Users\lachi\dev\freetype-2.11.0\include;C:\Users\lachi\dev\tinyobjloader;C:\Users\lachi\dev\glm;C:\Users\lachi\dev\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <TargetMachine>MachineX86</TargetMachine>
@@ -105,7 +105,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\lachi\dev\freetype-2.11.0\include;C:\Users\lachi\dev\tinyobjloader;C:\Users\lachi\dev\glm;C:\Users\lachi\dev\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\lachi\dev\stb;C:\Users\lachi\dev\glfw-3.3.4.bin.WIN64\include;C:\Users\lachi\dev\freetype-2.11.0\include;C:\Users\lachi\dev\tinyobjloader;C:\Users\lachi\dev\glm;C:\Users\lachi\dev\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>C:\Users\lachi\dev\freetype-2.11.0\objs\x64\Debug;C:\Users\lachi\dev\glfw-3.3.4.bin.WIN64\lib-vc2019;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -114,7 +114,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\lachi\dev\freetype-2.11.0\include;C:\Users\lachi\dev\tinyobjloader;C:\Users\lachi\dev\glm;C:\Users\lachi\dev\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\lachi\dev\stb;C:\Users\lachi\dev\glfw-3.3.4.bin.WIN64\include;C:\Users\lachi\dev\freetype-2.11.0\include;C:\Users\lachi\dev\tinyobjloader;C:\Users\lachi\dev\glm;C:\Users\lachi\dev\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>C:\Users\lachi\dev\freetype-2.11.0\objs\x64\Debug;C:\Users\lachi\dev\glfw-3.3.4.bin.WIN64\lib-vc2019;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -123,18 +123,43 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="program.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FileManager.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="Pipeline.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShadowMapFBO.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\light_shader.frag" />
+    <None Include="shaders\light_shader.vert" />
+    <None Include="shaders\lit_diffuse_normal.frag" />
+    <None Include="shaders\lit_diffuse_normal.vert" />
+    <None Include="shaders\lit_diffuse_normal_point_shadow.frag" />
+    <None Include="shaders\lit_diffuse_normal_point_shadow.vert" />
+    <None Include="shaders\screen.frag" />
+    <None Include="shaders\screen.vert" />
+    <None Include="shaders\shader.frag" />
+    <None Include="shaders\shader.vert" />
+    <None Include="shaders\shadowCubeMap.frag" />
+    <None Include="shaders\shadowCubeMap.geom" />
+    <None Include="shaders\shadowCubeMap.vert" />
+    <None Include="shaders\shadow_map.frag" />
+    <None Include="shaders\shadow_map.vert" />
+    <None Include="shaders\text.frag" />
+    <None Include="shaders\text.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -20,7 +20,7 @@ void main()
 	FragPos = vec3(model * vec4(aPos, 1.0));
 	Normal = mat3(transpose(inverse(model))) * aNormal;
 	Tangent = (model * vec4(aTangent, 0.0)).xyz;
-	TexCoords = aTexCoords;
+	TexCoords = aTexCoords*6;
 	FragPosLightSpace = lightSpaceMatrix * vec4(FragPos, 1.0);
 
 	gl_Position = projection * view * vec4(FragPos, 1.0);

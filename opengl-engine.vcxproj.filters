@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{20287652-032b-4c82-8ecb-e4c582956d40}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp">
@@ -25,6 +28,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="glad.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FileManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="program.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -50,5 +62,67 @@
     <ClInclude Include="Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Pipeline.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FileManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\light_shader.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\light_shader.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\lit_diffuse_normal.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\lit_diffuse_normal.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\lit_diffuse_normal_point_shadow.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\lit_diffuse_normal_point_shadow.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\screen.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\screen.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\shader.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\shader.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\shadow_map.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\shadow_map.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\shadowCubeMap.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\shadowCubeMap.geom">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\shadowCubeMap.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\text.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\text.vert">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

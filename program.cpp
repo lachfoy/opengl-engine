@@ -1,15 +1,15 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "ResourceManager.h"
 #include "Game.h"
-#include "FileManager.h"
 
 #include <iostream>
 
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-void mouse_callback(GLFWwindow* window, double xpos, double ypos);
-void processInput(GLFWwindow* window);
-void renderScene(const Shader& shader);
+//void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+//void processInput(GLFWwindow* window);
 
 const unsigned int SCREEN_WIDTH = 800;
 const unsigned int SCREEN_HEIGHT = 600;
@@ -27,20 +27,14 @@ int main()
 #endif
 	glfwWindowHint(GLFW_RESIZABLE, false);
 
-	GLFWwindow* window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Bingus window", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "opengl-engine test", NULL, NULL);
 	if (window == NULL)
 	{
 		std::cout << "Failed to create GLFW window " << std::endl;
 		glfwTerminate();
 		return -1;
 	}
-
 	glfwMakeContextCurrent(window);
-	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-	glfwSetCursorPosCallback(window, mouse_callback);
-
-	// tell GLFW to capture our mouse
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	// Load GLAD function pointers
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -49,7 +43,15 @@ int main()
 		return -1;
 	}
 
+	glfwSetKeyCallback(window, key_callback);
+	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+	//glfwSetCursorPosCallback(window, mouse_callback);
+
+	// tell GLFW to capture our mouse
+	//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
 	// Configure global OpenGL states
+	// -------------------------------
 	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
@@ -91,8 +93,28 @@ int main()
 	}
 
 	// deallocate resources
-	FileManager::clear();
+	ResourceManager::clear();
 
 	glfwTerminate();
 	return 0;
+}
+
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
+{
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) glfwSetWindowShouldClose(window, true);
+
+	if (key >= 0 && key < 1024)
+	{
+		if (action == GLFW_PRESS) testGame.Keys[key] = true;
+		else if (action == GLFW_RELEASE)
+		{
+			testGame.Keys[key] = false;
+			testGame.KeysProcessed[key] = false;
+		}
+	}
+}
+
+void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
+	glViewport(0, 0, width, height);
 }

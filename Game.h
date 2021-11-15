@@ -1,5 +1,8 @@
 #pragma once
 
+#include "ResourceManager.h"
+#include "SpriteRenderer.h"
+
 enum GameState
 {
 	GAME_ACTIVE,
@@ -12,7 +15,9 @@ class Game
 public:
 	GameState State;
 	bool Keys[1024];
+	bool KeysProcessed[1024];
 	unsigned int Width, Height;
+	SpriteRenderer* Renderer;
 
 	Game(unsigned int width, unsigned int height);
 	~Game();

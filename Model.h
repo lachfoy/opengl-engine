@@ -3,13 +3,13 @@
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 
-#define TINYOBJLOADER_IMPLEMENTATION
-#include <tiny_obj_loader.h>
+#include "tiny_obj_loader.h"
 
 #include <iostream>
 #include <vector>
 
 #include "Shader.h"
+#include "Texture.h"
 
 struct Vertex {
 	glm::vec3 Position;
@@ -18,23 +18,17 @@ struct Vertex {
 	glm::vec3 Tangent;
 };
 
-struct Texture {
-	unsigned int id;
-	std::string type;
-};
-
 class Model
 {
 public:
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
-	std::vector<Texture> textures;
-
-	Model(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures)
+	Texture texture; // TODO: should be replaced with a material class?
+	
+	Model(std::vector<Vertex> vertices, std::vector<unsigned int> indices)
 	{
 		this->vertices = vertices;
 		this->indices = indices;
-		this->textures = textures;
 
 		computeTangents();
 		setUpModel();
@@ -47,146 +41,31 @@ public:
 		glDeleteBuffers(1, &EBO);
 	}
 
-	void draw()
+	void setTexture(Texture& texture)
 	{
-		glBindVertexArray(VAO);
+		this->texture = texture;
+	}
+
+	// TODO: move drawing/rendering into a renderer class
+	void draw(Shader& shader, glm::vec3 position = glm::vec3(0.0f), glm::vec3 scale = glm::vec3(1.0f))
+	{
+		shader.use();
+		glm::mat4 model = glm::mat4(1.0f);
+		model = glm::translate(model, position);
+		
+		model = glm::scale(model, scale);
+
+		shader.setMat4("model", model);
+
+		glActiveTexture(GL_TEXTURE0);
+		texture.bind();
+
+		glBindVertexArray(this->VAO);
 		glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 	}
 
-	static Model* loadModel(std::string path)
-	{
-		tinyobj::attrib_t attrib;
-		std::vector<tinyobj::shape_t> shapes;
-		std::vector<tinyobj::material_t> materials;
-		std::string warn, err;
-
-		if (!tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err, path.c_str()))
-		{
-			throw std::runtime_error(warn + err);
-		}
-
-		std::vector<Vertex> vertices;
-		std::vector<unsigned int> indices;
-		std::vector<Texture> textures;
-		for (const auto& shape : shapes)
-		{
-			for (const auto& index : shape.mesh.indices)
-			{
-				Vertex vertex{};
-
-				vertex.Position = {
-					attrib.vertices[3 * index.vertex_index + 0],
-					attrib.vertices[3 * index.vertex_index + 1],
-					attrib.vertices[3 * index.vertex_index + 2]
-				};
-
-				if (index.normal_index >= 0)
-				{
-					vertex.Normal = {
-						attrib.normals[3 * index.normal_index + 0],
-						attrib.normals[3 * index.normal_index + 1],
-						attrib.normals[3 * index.normal_index + 2],
-						
-					};
-				}
-
-				if (index.texcoord_index >= 0)
-				{
-					vertex.TexCoords = {
-						attrib.texcoords[2 * index.texcoord_index + 0],
-						attrib.texcoords[2 * index.texcoord_index + 1]
-					};
-				}
-
-				// Calculate tangent and bitangents...
-				//glm::vec3 edge1 = ;
-				//glm::vec3 edge2;
-				//glm::vec2 deltaUV1;
-				//glm::vec2 deltaUV2;
-				//vertex.Tangent = {  };
-
-				vertices.push_back(vertex);
-				indices.push_back(indices.size());
-			}
-		}
-
-		return new Model(vertices, indices, textures);
-	}
-
-	static Model* loadCube()
-	{
-		std::vector<Vertex> vertices;
-		std::vector<unsigned int> indices;
-		std::vector<Texture> textures;
-
-		vertices = {
-			{ { -0.5f, -0.5f, -0.5f }, {  0.0f,  0.0f, -1.0f }, { 0.0f, 0.0f } },
-			{ {  0.5f, -0.5f, -0.5f }, {  0.0f,  0.0f, -1.0f }, { 1.0f, 0.0f } },
-			{ {  0.5f,  0.5f, -0.5f }, {  0.0f,  0.0f, -1.0f }, { 1.0f, 1.0f } },
-			{ {  0.5f,  0.5f, -0.5f }, {  0.0f,  0.0f, -1.0f }, { 1.0f, 1.0f } },
-			{ { -0.5f,  0.5f, -0.5f }, {  0.0f,  0.0f, -1.0f }, { 0.0f, 1.0f } },
-			{ { -0.5f, -0.5f, -0.5f }, {  0.0f,  0.0f, -1.0f }, { 0.0f, 0.0f } },
-
-			{ { -0.5f, -0.5f,  0.5f }, {  0.0f,  0.0f,  1.0f }, { 0.0f, 0.0f } },
-			{ {  0.5f, -0.5f,  0.5f }, {  0.0f,  0.0f,  1.0f }, { 1.0f, 0.0f } },
-			{ {  0.5f,  0.5f,  0.5f }, {  0.0f,  0.0f,  1.0f }, { 1.0f, 1.0f } },
-			{ {  0.5f,  0.5f,  0.5f }, {  0.0f,  0.0f,  1.0f }, { 1.0f, 1.0f } },
-			{ { -0.5f,  0.5f,  0.5f }, {  0.0f,  0.0f,  1.0f }, { 0.0f, 1.0f } },
-			{ { -0.5f, -0.5f,  0.5f }, {  0.0f,  0.0f,  1.0f }, { 0.0f, 0.0f } },
-
-			{ { -0.5f,  0.5f,  0.5f }, { -1.0f,  0.0f,  0.0f }, { 1.0f, 0.0f } },
-			{ { -0.5f,  0.5f, -0.5f }, { -1.0f,  0.0f,  0.0f }, { 1.0f, 1.0f } },
-			{ { -0.5f, -0.5f, -0.5f }, { -1.0f,  0.0f,  0.0f }, { 0.0f, 1.0f } },
-			{ { -0.5f, -0.5f, -0.5f }, { -1.0f,  0.0f,  0.0f }, { 0.0f, 1.0f } },
-			{ { -0.5f, -0.5f,  0.5f }, { -1.0f,  0.0f,  0.0f }, { 0.0f, 0.0f } },
-			{ { -0.5f,  0.5f,  0.5f }, { -1.0f,  0.0f,  0.0f }, { 1.0f, 0.0f } },
-
-			{ {  0.5f,  0.5f,  0.5f }, {  1.0f,  0.0f,  0.0f }, { 1.0f, 0.0f } },
-			{ {  0.5f,  0.5f, -0.5f }, {  1.0f,  0.0f,  0.0f }, { 1.0f, 1.0f } },
-			{ {  0.5f, -0.5f, -0.5f }, {  1.0f,  0.0f,  0.0f }, { 0.0f, 1.0f } },
-			{ {  0.5f, -0.5f, -0.5f }, {  1.0f,  0.0f,  0.0f }, { 0.0f, 1.0f } },
-			{ {  0.5f, -0.5f,  0.5f }, {  1.0f,  0.0f,  0.0f }, { 0.0f, 0.0f } },
-			{ {  0.5f,  0.5f,  0.5f }, {  1.0f,  0.0f,  0.0f }, { 1.0f, 0.0f } },
-
-			{ { -0.5f, -0.5f, -0.5f }, {  0.0f, -1.0f,  0.0f }, { 0.0f, 1.0f } },
-			{ {  0.5f, -0.5f, -0.5f }, {  0.0f, -1.0f,  0.0f }, { 1.0f, 1.0f } },
-			{ {  0.5f, -0.5f,  0.5f }, {  0.0f, -1.0f,  0.0f }, { 1.0f, 0.0f } },
-			{ {  0.5f, -0.5f,  0.5f }, {  0.0f, -1.0f,  0.0f }, { 1.0f, 0.0f } },
-			{ { -0.5f, -0.5f,  0.5f }, {  0.0f, -1.0f,  0.0f }, { 0.0f, 0.0f } },
-			{ { -0.5f, -0.5f, -0.5f }, {  0.0f, -1.0f,  0.0f }, { 0.0f, 1.0f } },
-
-			{ { -0.5f,  0.5f, -0.5f }, {  0.0f,  1.0f,  0.0f }, { 0.0f, 1.0f } },
-			{ {  0.5f,  0.5f, -0.5f }, {  0.0f,  1.0f,  0.0f }, { 1.0f, 1.0f } },
-			{ {  0.5f,  0.5f,  0.5f }, {  0.0f,  1.0f,  0.0f }, { 1.0f, 0.0f } },
-			{ {  0.5f,  0.5f,  0.5f }, {  0.0f,  1.0f,  0.0f }, { 1.0f, 0.0f } },
-			{ { -0.5f,  0.5f,  0.5f }, {  0.0f,  1.0f,  0.0f }, { 0.0f, 0.0f } },
-			{ { -0.5f,  0.5f, -0.5f }, {  0.0f,  1.0f,  0.0f }, { 0.0f, 1.0f } }
-		};
-
-		return new Model(vertices, indices, textures);
-	}
-
-	static Model* loadPlane()
-	{
-		std::vector<Vertex> vertices;
-		std::vector<unsigned int> indices;
-		std::vector<Texture> textures;
-
-		vertices = {
-			{ {  0.5f,  0.5f, 0.0f }, {  0.0f,  0.0f, 1.0f }, { 1.0f, 1.0f } }, // top right
-			{ {  0.5f, -0.5f, 0.0f }, {  0.0f,  0.0f, 1.0f }, { 1.0f, 0.0f } }, // bottom right
-			{ { -0.5f, -0.5f, 0.0f }, {  0.0f,  0.0f, 1.0f }, { 0.0f, 0.0f } }, // bottom left
-			{ { -0.5f,  0.5f, 0.0f }, {  0.0f,  0.0f, 1.0f }, { 0.0f, 1.0f } }, // top left
-		};
-
-		indices = {
-			2, 1, 0,
-			2, 0, 3
-		};
-
-		return new Model(vertices, indices, textures);
-	}
+	static Model* loadModel(std::string modelPath);
 
 private:
 	unsigned int VAO, VBO, EBO;

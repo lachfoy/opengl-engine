@@ -1,7 +1,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "ResourceManager.h"
+//#include "ResourceManager.h"
 #include "Game.h"
 
 #include <iostream>
@@ -66,6 +66,7 @@ int main()
 	float lastFrame = 0.0f;
 	unsigned int frameCounter = 0;
 
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	while (!glfwWindowShouldClose(window))
 	{
 		// calculate delta time
@@ -85,7 +86,7 @@ int main()
 
 		// render
 		// ------
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		glClearColor(0.4f, 0.3f, 0.5f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 		testGame.render();
 

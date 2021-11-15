@@ -14,7 +14,6 @@
 #include "Camera.h"
 #include "Texture.h"
 #include "Model.h"
-#include "ShadowMapFBO.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);

@@ -11,7 +11,7 @@ class Shader
 public:
 	GLuint ID;
 
-	Shader() { }
+	Shader() { ID = 0; }
 	Shader& use();
 
 	void compile(const char* vertexSrc, const char* fragmentSrc, const char* geometrySrc = nullptr);

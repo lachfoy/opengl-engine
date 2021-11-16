@@ -2,6 +2,7 @@
 
 Model::~Model()
 {
+	// Why is the destructor being called before the model can draw?
 }
 
 void Model::setTexture(Texture& texture)

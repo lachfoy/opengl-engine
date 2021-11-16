@@ -3,6 +3,7 @@
 #include "ResourceManager.h"
 #include "SpriteRenderer.h"
 #include "Model.h"
+#include "ModelRenderer.h"
 
 enum GameState
 {
@@ -19,8 +20,7 @@ public:
 	bool KeysProcessed[1024];
 	unsigned int Width, Height;
 	SpriteRenderer* Renderer;
-
-	Model* testModel; // delete this lol
+	ModelRenderer* modelRenderer;
 
 	Game(unsigned int width, unsigned int height);
 	~Game();

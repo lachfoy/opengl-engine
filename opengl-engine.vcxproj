@@ -137,16 +137,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="glad.c" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="ModelRenderer.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="program.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
+    <ClCompile Include="stb_image.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="tiny_obj_loader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Model.h" />
+    <ClInclude Include="ModelRenderer.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Camera.h" />

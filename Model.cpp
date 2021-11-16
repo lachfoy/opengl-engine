@@ -1,53 +1,55 @@
 #include "Model.h"
 
-Model* Model::loadModel(std::string modelPath)
+Model::~Model()
 {
-	tinyobj::attrib_t attrib;
-	std::vector<tinyobj::shape_t> shapes;
-	std::vector<tinyobj::material_t> materials;
-	std::string warn, err;
+	glDeleteVertexArrays(1, &VAO);
+	//glDeleteBuffers(1, &VBO);
+	//glDeleteBuffers(1, &EBO);
+}
 
-	if (!tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err, modelPath.c_str()))
-	{
-		throw std::runtime_error(warn + err);
-	}
+void Model::setTexture(Texture& texture)
+{
+	this->texture = texture;
+}
 
-	std::vector<Vertex> vertices;
-	std::vector<unsigned int> indices;
-	for (const auto& shape : shapes)
-	{
-		for (const auto& index : shape.mesh.indices)
-		{
-			Vertex vertex{};
+void Model::generate(std::vector<Vertex> vertices, std::vector<unsigned int> indices)
+{
+	this->vertices = vertices;
+	this->indices = indices;
 
-			vertex.Position = {
-				attrib.vertices[3 * index.vertex_index + 0],
-				attrib.vertices[3 * index.vertex_index + 1],
-				attrib.vertices[3 * index.vertex_index + 2]
-			};
+	setUpModel();
+}
 
-			if (index.normal_index >= 0)
-			{
-				vertex.Normal = {
-					attrib.normals[3 * index.normal_index + 0],
-					attrib.normals[3 * index.normal_index + 1],
-					attrib.normals[3 * index.normal_index + 2],
+void Model::setUpModel()
+{
+	// Generate the buffer objects
+	glGenVertexArrays(1, &this->VAO);
+	glGenBuffers(1, &this->VBO);
+	glGenBuffers(1, &this->EBO);
 
-				};
-			}
+	// bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s)
+	glBindVertexArray(this->VAO);
 
-			if (index.texcoord_index >= 0)
-			{
-				vertex.TexCoords = {
-					attrib.texcoords[2 * index.texcoord_index + 0],
-					attrib.texcoords[2 * index.texcoord_index + 1]
-				};
-			}
+	// copy vertices array into buffer
+	glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
+	glBufferData(GL_ARRAY_BUFFER, this->vertices.size() * sizeof(Vertex), &this->vertices[0], GL_STATIC_DRAW);
 
-			vertices.push_back(vertex);
-			indices.push_back(indices.size());
-		}
-	}
+	// copy indices array into buffer
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->indices.size() * sizeof(unsigned int), &this->indices[0], GL_STATIC_DRAW);
 
-	return new Model(vertices, indices);
+	// set vertex attribute pointers so that OpenGL understands the format of our vertex data
+	// Position attribute
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+
+	// Normal attribute
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
+
+	// Texture coord attribute
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
+
+	glBindVertexArray(0);
 }

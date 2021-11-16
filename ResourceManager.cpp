@@ -1,6 +1,7 @@
 #include "ResourceManager.h"
 
 #include "stb_image.h"
+#include "tiny_obj_loader.h"
 
 #include <iostream>
 #include <sstream>
@@ -9,7 +10,7 @@
 std::map<std::string, Texture> ResourceManager::textures;
 std::map<std::string, Shader> ResourceManager::shaders;
 // materials
-// models
+std::map<std::string, Model> ResourceManager::models;
 // scripts
 
 Shader ResourceManager::loadShader(const char* vShaderFile, const char* fShaderFile, const char* gShaderFile, std::string name)
@@ -32,6 +33,17 @@ Texture ResourceManager::loadTexture(const char* file, bool alpha, std::string n
 Texture ResourceManager::getTexture(std::string name)
 {
 	return textures[name];
+}
+
+Model ResourceManager::loadModel(const char* file, std::string name)
+{
+	models[name] = loadModelFromFile(file);
+	return models[name];
+}
+
+Model ResourceManager::getModel(std::string name)
+{
+	return models[name];
 }
 
 void ResourceManager::clear()
@@ -113,4 +125,58 @@ Texture ResourceManager::loadTextureFromFile(const char* file, bool alpha)
 	stbi_image_free(data);
 
 	return texture;
+}
+
+Model ResourceManager::loadModelFromFile(const char* file)
+{
+	Model model;
+	tinyobj::attrib_t attrib;
+	std::vector<tinyobj::shape_t> shapes;
+	std::vector<tinyobj::material_t> materials;
+	std::string warn, err;
+
+	if (!tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err, file))
+	{
+		throw std::runtime_error(warn + err);
+	}
+
+	std::vector<Vertex> vertices;
+	std::vector<unsigned int> indices;
+	for (const auto& shape : shapes)
+	{
+		for (const auto& index : shape.mesh.indices)
+		{
+			Vertex vertex{};
+
+			vertex.Position = {
+				attrib.vertices[3 * index.vertex_index + 0],
+				attrib.vertices[3 * index.vertex_index + 1],
+				attrib.vertices[3 * index.vertex_index + 2]
+			};
+
+			if (index.normal_index >= 0)
+			{
+				vertex.Normal = {
+					attrib.normals[3 * index.normal_index + 0],
+					attrib.normals[3 * index.normal_index + 1],
+					attrib.normals[3 * index.normal_index + 2],
+
+				};
+			}
+
+			if (index.texcoord_index >= 0)
+			{
+				vertex.TexCoords = {
+					attrib.texcoords[2 * index.texcoord_index + 0],
+					attrib.texcoords[2 * index.texcoord_index + 1]
+				};
+			}
+
+			vertices.push_back(vertex);
+			indices.push_back(indices.size());
+		}
+	}
+
+	model.generate(vertices, indices);
+	return model;
 }

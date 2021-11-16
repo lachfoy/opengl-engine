@@ -1,122 +1,132 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="opengl-engine">
+      <UniqueIdentifier>{d82a8ad7-5885-4504-b2a9-bf9efe83ff7a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
+    <Filter Include="opengl-engine\Mesh">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    <Filter Include="opengl-engine\glad">
+      <UniqueIdentifier>{23672e5f-a30c-4428-9c31-6002b14127fa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shaders">
+    <Filter Include="opengl-engine\tiny_obj_loader">
+      <UniqueIdentifier>{af8931ab-b1af-4dc8-8b1f-64acb7650aef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="opengl-engine\stb">
+      <UniqueIdentifier>{00c4375c-54a3-4fae-a565-a3bf24e531a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="opengl-engine\Shading">
+      <UniqueIdentifier>{9031ba8b-b8ac-4059-8dc5-c3a789b8600c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="opengl-engine\Renderer">
+      <UniqueIdentifier>{82c73783-00de-4705-875a-433e26e685ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="opengl-engine\Shaders">
       <UniqueIdentifier>{20287652-032b-4c82-8ecb-e4c582956d40}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Shader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ResourceManager.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Game.cpp">
+      <Filter>opengl-engine</Filter>
     </ClCompile>
     <ClCompile Include="program.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>opengl-engine</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteRenderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Model.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelRenderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="stb_image.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="tiny_obj_loader.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>opengl-engine</Filter>
     </ClCompile>
     <ClCompile Include="glad.c">
-      <Filter>Source Files</Filter>
+      <Filter>opengl-engine\glad</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelRenderer.cpp">
+      <Filter>opengl-engine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>opengl-engine\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>opengl-engine\Shading</Filter>
+    </ClCompile>
+    <ClCompile Include="stb_image.cpp">
+      <Filter>opengl-engine\stb</Filter>
+    </ClCompile>
+    <ClCompile Include="tiny_obj_loader.cpp">
+      <Filter>opengl-engine\tiny_obj_loader</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>opengl-engine\Shading</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteRenderer.cpp">
+      <Filter>opengl-engine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>opengl-engine\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Debug.h">
+      <Filter>opengl-engine</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
-      <Filter>Header Files</Filter>
+      <Filter>opengl-engine</Filter>
     </ClInclude>
     <ClInclude Include="ResourceManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteRenderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Model.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tiny_obj_loader.h">
-      <Filter>Header Files</Filter>
+      <Filter>opengl-engine</Filter>
     </ClInclude>
     <ClInclude Include="ModelRenderer.h">
-      <Filter>Header Files</Filter>
+      <Filter>opengl-engine\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Debug.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Model.h">
+      <Filter>opengl-engine\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>opengl-engine\Shading</Filter>
+    </ClInclude>
+    <ClInclude Include="tiny_obj_loader.h">
+      <Filter>opengl-engine\tiny_obj_loader</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>opengl-engine\Shading</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRenderer.h">
+      <Filter>opengl-engine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>opengl-engine\Renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\screen.frag">
-      <Filter>Shaders</Filter>
+      <Filter>opengl-engine\Shaders</Filter>
     </None>
     <None Include="shaders\screen.vert">
-      <Filter>Shaders</Filter>
+      <Filter>opengl-engine\Shaders</Filter>
     </None>
     <None Include="shaders\shader.frag">
-      <Filter>Shaders</Filter>
+      <Filter>opengl-engine\Shaders</Filter>
     </None>
     <None Include="shaders\shader.vert">
-      <Filter>Shaders</Filter>
+      <Filter>opengl-engine\Shaders</Filter>
     </None>
     <None Include="shaders\text.frag">
-      <Filter>Shaders</Filter>
+      <Filter>opengl-engine\Shaders</Filter>
     </None>
     <None Include="shaders\text.vert">
-      <Filter>Shaders</Filter>
+      <Filter>opengl-engine\Shaders</Filter>
     </None>
     <None Include="shaders\sprite.frag">
-      <Filter>Shaders</Filter>
+      <Filter>opengl-engine\Shaders</Filter>
     </None>
     <None Include="shaders\sprite.vert">
-      <Filter>Shaders</Filter>
+      <Filter>opengl-engine\Shaders</Filter>
     </None>
     <None Include="shaders\model.frag">
-      <Filter>Shaders</Filter>
+      <Filter>opengl-engine\Shaders</Filter>
     </None>
     <None Include="shaders\model.vert">
-      <Filter>Shaders</Filter>
+      <Filter>opengl-engine\Shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

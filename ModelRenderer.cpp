@@ -7,7 +7,7 @@ ModelRenderer::ModelRenderer(Shader& shader)
 
 ModelRenderer::~ModelRenderer()
 {
-	
+
 }
 
 void ModelRenderer::drawModel(Model& p_model, glm::vec3 position, glm::vec3 scale)

@@ -176,5 +176,8 @@ Mesh ResourceManager::loadMeshFromFile(const char* file)
 		}
 	}
 
-	return Mesh(vertices, indices);
+	Mesh mesh(vertices, indices);
+	mesh.setUpMesh();
+
+	return mesh;
 }

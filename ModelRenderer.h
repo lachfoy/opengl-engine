@@ -14,8 +14,8 @@ public:
 	ModelRenderer(Shader& shader);
 	~ModelRenderer();
 
-	void drawModel(Mesh& p_model, glm::vec3 position, glm::vec3 scale);
+	void drawModel(Mesh& mesh, glm::vec3 position, glm::vec3 scale);
 
 private:
-	Shader modelShader;
+	Shader shader;
 };

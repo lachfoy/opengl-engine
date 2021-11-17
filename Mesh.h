@@ -8,7 +8,7 @@
 enum Topology
 {
 	TRIANGLES,
-	TRIANGLE_STRIP
+	TRIANGLE_STRIP,
 };
 
 struct Vertex {

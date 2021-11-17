@@ -2,7 +2,7 @@
 
 #include "ResourceManager.h"
 #include "SpriteRenderer.h"
-#include "Model.h"
+#include "Mesh.h"
 #include "ModelRenderer.h"
 
 enum GameState
@@ -29,10 +29,4 @@ public:
 	void processInput(float deltaTime);
 	void update(float deltaTime);
 	void render();
-
-private:
-	unsigned int planeVAO;
-
-	void drawGroundPlane(Shader& shader); // TODO: should probably move this someplace better
-	void setUpGroundPlane(); // TODO: this also
 };

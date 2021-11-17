@@ -10,7 +10,7 @@
 std::map<std::string, Texture> ResourceManager::textures;
 std::map<std::string, Shader> ResourceManager::shaders;
 // materials
-std::map<std::string, Model> ResourceManager::models;
+std::map<std::string, Mesh> ResourceManager::meshes;
 // scripts
 
 Shader ResourceManager::loadShader(const char* vShaderFile, const char* fShaderFile, const char* gShaderFile, std::string name)
@@ -35,15 +35,15 @@ Texture ResourceManager::getTexture(std::string name)
 	return textures[name];
 }
 
-Model ResourceManager::loadModel(const char* file, std::string name)
+Mesh ResourceManager::loadMesh(const char* file, std::string name)
 {
-	models[name] = loadModelFromFile(file);
-	return models[name];
+	meshes[name] = loadMeshFromFile(file);
+	return meshes[name];
 }
 
-Model ResourceManager::getModel(std::string name)
+Mesh ResourceManager::getMesh(std::string name)
 {
-	return models[name];
+	return meshes[name];
 }
 
 void ResourceManager::clear()
@@ -127,9 +127,8 @@ Texture ResourceManager::loadTextureFromFile(const char* file, bool alpha)
 	return texture;
 }
 
-Model ResourceManager::loadModelFromFile(const char* file)
+Mesh ResourceManager::loadMeshFromFile(const char* file)
 {
-	Model model;
 	tinyobj::attrib_t attrib;
 	std::vector<tinyobj::shape_t> shapes;
 	std::vector<tinyobj::material_t> materials;
@@ -177,6 +176,5 @@ Model ResourceManager::loadModelFromFile(const char* file)
 		}
 	}
 
-	model.generate(vertices, indices);
-	return model;
+	return Mesh(vertices, indices);
 }

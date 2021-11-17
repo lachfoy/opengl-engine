@@ -6,7 +6,7 @@
 
 #include "Texture.h"
 #include "Shader.h"
-#include "Model.h"
+#include "Mesh.h"
 
 class ModelRenderer
 {
@@ -14,7 +14,7 @@ public:
 	ModelRenderer(Shader& shader);
 	~ModelRenderer();
 
-	void drawModel(Model& p_model, glm::vec3 position, glm::vec3 scale);
+	void drawModel(Mesh& p_model, glm::vec3 position, glm::vec3 scale);
 
 private:
 	Shader modelShader;

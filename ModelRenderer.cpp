@@ -10,7 +10,7 @@ ModelRenderer::~ModelRenderer()
 
 }
 
-void ModelRenderer::drawModel(Model& p_model, glm::vec3 position, glm::vec3 scale)
+void ModelRenderer::drawModel(Mesh& p_model, glm::vec3 position, glm::vec3 scale)
 {
 	this->modelShader.use();
 	glm::mat4 model = glm::mat4(1.0f);

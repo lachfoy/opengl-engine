@@ -137,9 +137,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Cube.cpp" />
     <ClCompile Include="glad.c" />
-    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="ModelRenderer.cpp" />
+    <ClCompile Include="Plane.cpp" />
+    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="program.cpp" />
@@ -150,9 +153,12 @@
     <ClCompile Include="tiny_obj_loader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Cube.h" />
     <ClInclude Include="Debug.h" />
-    <ClInclude Include="Model.h" />
+    <ClInclude Include="Mesh.h" />
     <ClInclude Include="ModelRenderer.h" />
+    <ClInclude Include="Plane.h" />
+    <ClInclude Include="Renderer.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Camera.h" />
@@ -162,8 +168,8 @@
     <ClInclude Include="tiny_obj_loader.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\model.frag" />
-    <None Include="shaders\model.vert" />
+    <None Include="shaders\default.frag" />
+    <None Include="shaders\default.vert" />
     <None Include="shaders\screen.frag" />
     <None Include="shaders\screen.vert" />
     <None Include="shaders\shader.frag" />

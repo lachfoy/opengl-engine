@@ -26,6 +26,12 @@
     <Filter Include="opengl-engine\Shaders">
       <UniqueIdentifier>{20287652-032b-4c82-8ecb-e4c582956d40}</UniqueIdentifier>
     </Filter>
+    <Filter Include="opengl-engine\Lighting">
+      <UniqueIdentifier>{64d3c258-2809-4f2f-8e31-e3af29394917}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="opengl-engine\Camera">
+      <UniqueIdentifier>{5eb99335-777d-432d-b09d-ae0a1b194df6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -43,7 +49,7 @@
     <ClCompile Include="ModelRenderer.cpp">
       <Filter>opengl-engine\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="Model.cpp">
+    <ClCompile Include="Mesh.cpp">
       <Filter>opengl-engine\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="Shader.cpp">
@@ -62,7 +68,16 @@
       <Filter>opengl-engine\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
+      <Filter>opengl-engine\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube.cpp">
+      <Filter>opengl-engine\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
       <Filter>opengl-engine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Plane.cpp">
+      <Filter>opengl-engine\Mesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -78,7 +93,7 @@
     <ClInclude Include="ModelRenderer.h">
       <Filter>opengl-engine\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Model.h">
+    <ClInclude Include="Mesh.h">
       <Filter>opengl-engine\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
@@ -94,7 +109,16 @@
       <Filter>opengl-engine\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
+      <Filter>opengl-engine\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>opengl-engine\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
       <Filter>opengl-engine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Plane.h">
+      <Filter>opengl-engine\Mesh</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -122,10 +146,10 @@
     <None Include="shaders\sprite.vert">
       <Filter>opengl-engine\Shaders</Filter>
     </None>
-    <None Include="shaders\model.frag">
+    <None Include="shaders\default.frag">
       <Filter>opengl-engine\Shaders</Filter>
     </None>
-    <None Include="shaders\model.vert">
+    <None Include="shaders\default.vert">
       <Filter>opengl-engine\Shaders</Filter>
     </None>
   </ItemGroup>

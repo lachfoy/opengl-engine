@@ -19,9 +19,11 @@ uniform sampler2D diffuse;
 
 uniform Light light;
 
+uniform vec3 objectColor;
+
 void main()
 {
-    vec3 objectColor = vec3(1.0f, 1.0f, 1.0f);
+    //vec3 objectColor = vec3(1.0f, 1.0f, 1.0f);
 
     vec3 ambient = light.ambient * objectColor;
     // diffuse lighting

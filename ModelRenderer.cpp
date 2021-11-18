@@ -24,6 +24,13 @@ void ModelRenderer::drawModel(Mesh& mesh, glm::vec3 position, glm::vec3 scale)
 	//p_model.texture.bind();
 
 	glBindVertexArray(mesh.VAO);
-	glDrawElements(GL_TRIANGLES, mesh.indices.size(), GL_UNSIGNED_INT, 0);
+	if (mesh.indices.size() > 0)
+	{
+		glDrawElements(GL_TRIANGLES, mesh.indices.size(), GL_UNSIGNED_INT, 0);
+	}
+	else
+	{
+		glDrawArrays(GL_TRIANGLES, 0, mesh.vertices.size());
+	}
 	glBindVertexArray(0);
 }

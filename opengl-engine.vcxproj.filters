@@ -82,6 +82,9 @@
     <ClCompile Include="Plane.cpp">
       <Filter>opengl-engine\Mesh</Filter>
     </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>opengl-engine\Shading</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Debug.h">
@@ -128,6 +131,9 @@
     </ClInclude>
     <ClInclude Include="DirectionalLight.h">
       <Filter>opengl-engine\Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>opengl-engine\Shading</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -4,6 +4,7 @@
 #include "SpriteRenderer.h"
 #include "Mesh.h"
 #include "ModelRenderer.h"
+#include "Material.h"
 
 enum GameState
 {

@@ -9,9 +9,8 @@
 
 std::map<std::string, Texture> ResourceManager::textures;
 std::map<std::string, Shader> ResourceManager::shaders;
-// materials
 std::map<std::string, Mesh> ResourceManager::meshes;
-// scripts
+std::map<std::string, Material> ResourceManager::materials;
 
 Shader ResourceManager::loadShader(const char* vShaderFile, const char* fShaderFile, const char* gShaderFile, std::string name)
 {
@@ -44,6 +43,11 @@ Mesh ResourceManager::loadMesh(const char* file, std::string name)
 Mesh ResourceManager::getMesh(std::string name)
 {
 	return meshes[name];
+}
+
+Material ResourceManager::getMaterial(std::string name)
+{
+	return materials[name];
 }
 
 void ResourceManager::clear()

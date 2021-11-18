@@ -37,14 +37,19 @@ void Game::init()
 	ResourceManager::getShader("default").use().setVec3("light.diffuse", glm::vec3(0.8f, 0.8f, 0.8f));
 	ResourceManager::getShader("default").use().setVec3("light.specular", glm::vec3(1.0f, 1.0f, 1.0f));
 
+	// materials
+	Material* defaultMat = new Material(&ResourceManager::getShader("default"));
+	defaultMat->setVec3("objectColor", glm::vec3(0.0f, 1.0f, 1.0f));
+	defaultMat->updateUniforms();
+
 	// set render-specific controls
 	Renderer = new SpriteRenderer(ResourceManager::getShader("sprite"));
-	modelRenderer = new ModelRenderer(ResourceManager::getShader("default"));
+	modelRenderer = new ModelRenderer(*defaultMat->getShader());
 
 	// load textures
 	ResourceManager::loadTexture("images/jinx.png", false, "jinx");
 
-	// load models
+	// load meshes
 	ResourceManager::loadMesh("models/bunny_normals_smooth.obj", "bunny");
 }
 

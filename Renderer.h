@@ -1,8 +1,17 @@
 #pragma once
 
-#include "Shader.h"
+#include "Mesh.h"
+#include "Material.h"
+#include "Camera.h"
 
-class Mesh;
+#include <vector>
+
+struct RenderCommand
+{
+	Mesh* mesh;
+	Material* material;
+	glm::mat4 transform;
+};
 
 class Renderer
 {
@@ -11,9 +20,15 @@ public:
 	~Renderer();
 
 	void init();
-	void blit();
+
+	void push(Mesh* mesh, Material* material, glm::mat4 transform);
+	void render(Camera* camera = nullptr);
+
+	//void addLight(DirectionalLight* light)?
 
 private:
-	void renderMesh(Mesh* mesh, Shader* shader);
+	unsigned int mRenderWidth, mRenderHeight;
+	std::vector<RenderCommand> mRenderCommands;
 
+	void renderMesh(Mesh* mesh, Shader* shader);
 };

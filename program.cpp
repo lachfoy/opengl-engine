@@ -89,6 +89,8 @@ int main()
 		float currentFrame = glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
+		std::string windowTitleDt = "opengl-engine test - dt: " + std::to_string(deltaTime);
+		glfwSetWindowTitle(window, windowTitleDt.c_str());
 		glfwPollEvents();
 
 		// manage user input
@@ -101,7 +103,7 @@ int main()
 
 		// render
 		// ------
-		glClearColor(0.4f, 0.3f, 0.5f, 1.0f);
+		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		testGame.render();
 

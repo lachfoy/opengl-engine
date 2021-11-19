@@ -9,9 +9,11 @@ Renderer::~Renderer()
 
 }
 
-void Renderer::init()
+void Renderer::init(unsigned int renderWidth, unsigned int renderHeight)
 {
-	// set default opengl states?
+	// set default openGL states?
+	mRenderWidth = renderWidth;
+	mRenderHeight = renderHeight;
 }
 
 void Renderer::push(Mesh* mesh, Material* material, glm::mat4 transform)
@@ -44,14 +46,10 @@ void Renderer::render(Camera* camera)
 		Material* material = mRenderCommands[i].material;
 		Mesh* mesh = mRenderCommands[i].mesh;
 
-		material->getShader()->use();
-		if (camera != nullptr)
-		{
-			material->getShader()->setMat4("projection", camera->Projection);
-			material->getShader()->setMat4("view", camera->View);
-			material->getShader()->setVec3("viewPos", camera->Position);
-		}
-		material->getShader()->setMat4("model", mRenderCommands[i].transform);
+		material->getShader()->use().setMat4("projection", camera->Projection);
+		material->getShader()->use().setMat4("view", camera->View);
+		//material->getShader()->use().setVec3("viewPos", camera->Position); will be needed for specular
+		material->getShader()->use().setMat4("model", mRenderCommands[i].transform);
 
 		// bind sampler objects here
 
@@ -73,4 +71,5 @@ void Renderer::renderMesh(Mesh* mesh, Shader* shader)
 	{
 		glDrawArrays(mesh->topology == TRIANGLE_STRIP ? GL_TRIANGLE_STRIP : GL_TRIANGLES, 0, mesh->vertices.size());
 	}
+	glBindVertexArray(0);
 }

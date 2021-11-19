@@ -7,8 +7,11 @@ Game::Game(unsigned int width, unsigned int height)
 
 Game::~Game()
 {
-	delete Renderer;
+	delete spriteRenderer;
 	delete modelRenderer;
+	delete renderer;
+	delete defaultMat;
+	delete camera;
 }
 
 void Game::init()
@@ -38,13 +41,18 @@ void Game::init()
 	ResourceManager::getShader("default").use().setVec3("light.specular", glm::vec3(1.0f, 1.0f, 1.0f));
 
 	// materials
-	Material* defaultMat = new Material(&ResourceManager::getShader("default"));
+	defaultMat = new Material(&ResourceManager::getShader("default"));
 	defaultMat->setVec3("objectColor", glm::vec3(0.0f, 1.0f, 1.0f));
 	defaultMat->updateUniforms();
 
+	// camera
+	camera = new Camera(glm::vec3(0.0f, 0.0f, -3.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+
 	// set render-specific controls
-	Renderer = new SpriteRenderer(ResourceManager::getShader("sprite"));
+	spriteRenderer = new SpriteRenderer(ResourceManager::getShader("sprite"));
 	modelRenderer = new ModelRenderer(*defaultMat->getShader());
+	renderer = new Renderer();
+	renderer->init(Width, Height);
 
 	// load textures
 	ResourceManager::loadTexture("images/jinx.png", false, "jinx");
@@ -66,7 +74,12 @@ void Game::render()
 	//glDisable(GL_DEPTH_TEST);
 	modelRenderer->drawModel(ResourceManager::getMesh("bunny"), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f));
 
+	glm::mat4 transform = glm::mat4(1.0f);
+	transform = glm::translate(transform, glm::vec3(0.0f, 0.0f, 0.0f));
+	renderer->push(&ResourceManager::getMesh("bunny"), defaultMat, transform);
+	renderer->render(camera);
+
 	glDisable(GL_DEPTH_TEST); // Disable depth testing for sprite rendering
-	Renderer->drawSprite(ResourceManager::getTexture("jinx"), glm::vec2(100.0f, 100.0f), glm::vec2(100.0f, 150.0f));
+	spriteRenderer->drawSprite(ResourceManager::getTexture("jinx"), glm::vec2(100.0f, 100.0f), glm::vec2(100.0f, 150.0f));
 	glEnable(GL_DEPTH_TEST);
 }

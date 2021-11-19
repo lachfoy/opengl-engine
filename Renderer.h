@@ -19,7 +19,7 @@ public:
 	Renderer();
 	~Renderer();
 
-	void init();
+	void init(unsigned int renderWidth, unsigned int renderHeight);
 
 	void push(Mesh* mesh, Material* material, glm::mat4 transform);
 	void render(Camera* camera = nullptr);

@@ -5,6 +5,7 @@
 #include "Mesh.h"
 #include "ModelRenderer.h"
 #include "Material.h"
+#include "Renderer.h"
 
 enum GameState
 {
@@ -20,8 +21,11 @@ public:
 	bool Keys[1024];
 	bool KeysProcessed[1024];
 	unsigned int Width, Height;
-	SpriteRenderer* Renderer;
+	SpriteRenderer* spriteRenderer;
 	ModelRenderer* modelRenderer;
+	Renderer* renderer;
+	Material* defaultMat;
+	Camera* camera;
 
 	Game(unsigned int width, unsigned int height);
 	~Game();

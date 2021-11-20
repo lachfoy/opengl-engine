@@ -38,13 +38,17 @@ void Game::init()
 	ResourceManager::getShader("default").use().setVec3("light.diffuse", glm::vec3(0.8f, 0.8f, 0.8f));
 	ResourceManager::getShader("default").use().setVec3("light.specular", glm::vec3(1.0f, 1.0f, 1.0f));
 
+	// camera
+	mCamera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	mCamera->setPerspective(45.0f, static_cast<float>(this->Width) / static_cast<float>(this->Height), 0.1f, 100.0f);
+
 	// materials
 	mDefaultMat = std::make_shared<Material>(std::make_shared<Shader>(ResourceManager::getShader("default")));
 	mDefaultMat->setVec3("objectColor", glm::vec3(0.0f, 1.0f, 1.0f));
 	mDefaultMat->updateUniforms();
-
-	// camera
-	mCamera = new Camera(glm::vec3(0.0f, 0.0f, -3.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	mDefaultMat->getShaderPointer()->setMat4("projection", mCamera->Projection);
+	mDefaultMat->getShaderPointer()->setMat4("view", mCamera->View);
+	mDefaultMat->getShaderPointer()->setVec3("viewPos", mCamera->Position);
 
 	// set render-specific controls
 	spriteRenderer = new SpriteRenderer(ResourceManager::getShader("sprite"));
@@ -72,9 +76,9 @@ void Game::render()
 
 	glm::mat4 transform = glm::mat4(1.0f);
 	transform = glm::translate(transform, glm::vec3(0.0f, 0.0f, 0.0f));
-	mMeshRenderer->drawMesh(&ResourceManager::getMesh("bunny"), &ResourceManager::getShader("default"), transform);
+	mMeshRenderer->drawMesh(&ResourceManager::getMesh("bunny"), mDefaultMat->getShaderPointer().get(), transform, mCamera);
 
-	glDisable(GL_DEPTH_TEST); // Disable depth testing for sprite rendering
-	spriteRenderer->drawSprite(ResourceManager::getTexture("jinx"), glm::vec2(100.0f, 100.0f), glm::vec2(100.0f, 150.0f));
-	glEnable(GL_DEPTH_TEST);
+	//glDisable(GL_DEPTH_TEST); // Disable depth testing for sprite rendering
+	//spriteRenderer->drawSprite(ResourceManager::getTexture("jinx"), glm::vec2(100.0f, 100.0f), glm::vec2(100.0f, 150.0f));
+	//glEnable(GL_DEPTH_TEST);
 }

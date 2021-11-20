@@ -17,7 +17,7 @@ void Camera::update(float deltaTime)
 
 void Camera::setPerspective(float fov, float aspect, float near, float far)
 {
-    glm::perspective(fov, aspect, near, far);
+    Projection = glm::perspective(fov, aspect, near, far);
     Fov = fov;
     Aspect = aspect;
     Near = near;
@@ -27,35 +27,6 @@ void Camera::setPerspective(float fov, float aspect, float near, float far)
 void Camera::updateView()
 {
     View = glm::lookAt(Position, Position + Forward, Up);
-}
-
-void Camera::processKeyboard(Camera_Movement direction, float deltaTime)
-{
-    float velocity = MovementSpeed * deltaTime;
-    if (direction == FORWARD)
-        Position += Forward * velocity;
-    if (direction == BACKWARD)
-        Position -= Forward * velocity;
-    if (direction == LEFT)
-        Position -= Right * velocity;
-    if (direction == RIGHT)
-        Position += Right * velocity;
-}
-
-void Camera::processMouseMovement(float xoffset, float yoffset)
-{
-    xoffset *= MouseSensitivity;
-    yoffset *= MouseSensitivity;
-
-    Yaw += xoffset;
-    Pitch += yoffset;
-
-    if (Pitch > 89.0f)
-        Pitch = 89.0f;
-    if (Pitch < -89.0f)
-        Pitch = -89.0f;
-
-    updateCameraVectors();
 }
 
 void Camera::updateCameraVectors()

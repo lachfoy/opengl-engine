@@ -17,12 +17,6 @@ enum Camera_Movement
     DOWN
 };
 
-const float YAW = -90.0f;
-const float PITCH = 0.0f;
-const float SPEED = 6.5f;
-const float SENSITIVITY = 0.1f;
-const float FOV = 75.0f;
-
 class Camera
 {
 public:
@@ -36,12 +30,10 @@ public:
     glm::vec3 WorldUp;
     
     // euler Angles
-    float Yaw;
-    float Pitch;
+    float Yaw = -90.0f;
+    float Pitch = 0.0f;
     
     // camera options
-    float MovementSpeed;
-    float MouseSensitivity;
     float Fov;
     float Aspect;
     float Near;
@@ -54,9 +46,6 @@ public:
     void setPerspective(float fov, float aspect, float near, float far);
 
     void updateView();
-
-    void processKeyboard(Camera_Movement direction, float deltaTime);
-    void processMouseMovement(float xoffset, float yoffset);
 
 private:
     void updateCameraVectors();

@@ -20,6 +20,7 @@ uniform sampler2D diffuse;
 uniform Light light;
 
 uniform vec3 objectColor;
+uniform vec3 viewPos;
 
 void main()
 {

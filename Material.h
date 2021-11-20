@@ -20,7 +20,7 @@ public:
 	~Material();
 	
 	inline Shader getShader() const { return this->shader; }
-	inline Shader* getShaderPointer() const {} //return this->shader; }
+	inline std::shared_ptr<Shader> getShaderPointer() const { return mShader; }
 	inline Texture* getTexture() const { return this->texture; }
 
 	void setShader(Shader* shader);

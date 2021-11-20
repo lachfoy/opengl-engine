@@ -6,6 +6,8 @@
 #include "MeshRenderer.h"
 #include "Material.h"
 
+#include <memory>
+
 enum GameState
 {
 	GAME_ACTIVE,
@@ -22,7 +24,7 @@ public:
 	unsigned int Width, Height;
 	SpriteRenderer* spriteRenderer;
 	MeshRenderer* mMeshRenderer;
-	Material* mDefaultMat;
+	std::shared_ptr<Material> mDefaultMat;
 	Camera* mCamera;
 
 	Game(unsigned int width, unsigned int height);

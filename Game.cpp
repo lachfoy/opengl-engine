@@ -9,7 +9,6 @@ Game::~Game()
 {
 	delete spriteRenderer;
 	delete mMeshRenderer;
-	delete mDefaultMat;
 	delete mCamera;
 }
 
@@ -40,10 +39,9 @@ void Game::init()
 	ResourceManager::getShader("default").use().setVec3("light.specular", glm::vec3(1.0f, 1.0f, 1.0f));
 
 	// materials
-	mDefaultMat = new Material(ResourceManager::getShader("default"));
+	mDefaultMat = std::make_shared<Material>(std::make_shared<Shader>(ResourceManager::getShader("default")));
 	mDefaultMat->setVec3("objectColor", glm::vec3(0.0f, 1.0f, 1.0f));
 	mDefaultMat->updateUniforms();
-	mDefaultMat->getShader().Use();
 
 	// camera
 	mCamera = new Camera(glm::vec3(0.0f, 0.0f, -3.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -74,7 +72,7 @@ void Game::render()
 
 	glm::mat4 transform = glm::mat4(1.0f);
 	transform = glm::translate(transform, glm::vec3(0.0f, 0.0f, 0.0f));
-	mMeshRenderer->drawMesh(&ResourceManager::getMesh("bunny"), &mDefaultMat->getShader(), transform);
+	mMeshRenderer->drawMesh(&ResourceManager::getMesh("bunny"), &ResourceManager::getShader("default"), transform);
 
 	glDisable(GL_DEPTH_TEST); // Disable depth testing for sprite rendering
 	spriteRenderer->drawSprite(ResourceManager::getTexture("jinx"), glm::vec2(100.0f, 100.0f), glm::vec2(100.0f, 150.0f));

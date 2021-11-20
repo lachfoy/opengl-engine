@@ -1,15 +1,16 @@
 #include "Material.h"
 
 Material::Material(Shader shader, Texture* texture)
+	: shader{ shader }, texture{ texture }
 {
-	this->shader = shader;
-	this->texture = texture;
 }
 
-Material::~Material()
+Material::Material(std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture)
+	: mShader { shader }, mTexture { texture }
 {
-	//delete this->shader;
 }
+
+Material::~Material() {}
 
 void Material::setShader(Shader* shader)
 {
@@ -21,23 +22,33 @@ void Material::setTexture(Texture* texture)
 	this->texture = texture;
 }
 
+void Material::setShader(std::shared_ptr<Shader> shader)
+{
+	mShader = shader;
+}
+
+void Material::setTexture(std::shared_ptr<Texture> texture)
+{
+	mTexture = texture;
+}
+
 void Material::updateUniforms()
 {
 	for (const auto& it : uniformInts)
 	{
-		shader.setInt(it.first, it.second);
+		mShader->use().setInt(it.first, it.second);
 	}
 	for (const auto& it : uniformFloats)
 	{
-		shader.setFloat(it.first, it.second);
+		mShader->use().setFloat(it.first, it.second);
 	}
 	for (const auto& it : uniformVec3s)
 	{
-		shader.setVec3(it.first, it.second);
+		mShader->use().setVec3(it.first, it.second);
 	}
 	for (const auto& it : uniformMat4s)
 	{
-		shader.setMat4(it.first, it.second);
+		mShader->use().setMat4(it.first, it.second);
 	}
 }
 

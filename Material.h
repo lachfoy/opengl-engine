@@ -16,13 +16,17 @@ class Material
 public:
 	Material() {}
 	Material(Shader shader, Texture* texture = nullptr);
+	Material(std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture = nullptr);
 	~Material();
 	
 	inline Shader getShader() const { return this->shader; }
+	inline Shader* getShaderPointer() const {} //return this->shader; }
 	inline Texture* getTexture() const { return this->texture; }
 
 	void setShader(Shader* shader);
 	void setTexture(Texture* texture);
+	void setShader(std::shared_ptr<Shader> shader);
+	void setTexture(std::shared_ptr<Texture> texture);
 
 	void updateUniforms();
 
@@ -35,6 +39,7 @@ private:
 	Shader shader;
 	std::shared_ptr<Shader> mShader;
 	Texture* texture;
+	std::shared_ptr<Texture> mTexture;
 	glm::vec3 color;
 
 	std::map<std::string, int> uniformInts;

@@ -8,15 +8,17 @@
 
 #include <map>
 #include <string>
+#include <memory>
 
 // a shader with a stored list of properties/uniforms and some render settings (like depth test, blend, cull options)
 class Material
 {
 public:
 	Material() {}
-	Material(Shader* shader, Texture* texture = nullptr);
+	Material(Shader shader, Texture* texture = nullptr);
+	~Material();
 	
-	inline Shader* getShader() const { return this->shader; }
+	inline Shader getShader() const { return this->shader; }
 	inline Texture* getTexture() const { return this->texture; }
 
 	void setShader(Shader* shader);
@@ -30,7 +32,8 @@ public:
 	void setMat4(std::string name, glm::mat4 value);
 
 private:
-	Shader* shader;
+	Shader shader;
+	std::shared_ptr<Shader> mShader;
 	Texture* texture;
 	glm::vec3 color;
 

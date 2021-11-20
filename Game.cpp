@@ -8,10 +8,9 @@ Game::Game(unsigned int width, unsigned int height)
 Game::~Game()
 {
 	delete spriteRenderer;
-	delete modelRenderer;
-	delete renderer;
-	delete defaultMat;
-	delete camera;
+	delete mMeshRenderer;
+	delete mDefaultMat;
+	delete mCamera;
 }
 
 void Game::init()
@@ -41,18 +40,17 @@ void Game::init()
 	ResourceManager::getShader("default").use().setVec3("light.specular", glm::vec3(1.0f, 1.0f, 1.0f));
 
 	// materials
-	defaultMat = new Material(&ResourceManager::getShader("default"));
-	defaultMat->setVec3("objectColor", glm::vec3(0.0f, 1.0f, 1.0f));
-	defaultMat->updateUniforms();
+	mDefaultMat = new Material(ResourceManager::getShader("default"));
+	mDefaultMat->setVec3("objectColor", glm::vec3(0.0f, 1.0f, 1.0f));
+	mDefaultMat->updateUniforms();
+	mDefaultMat->getShader().Use();
 
 	// camera
-	camera = new Camera(glm::vec3(0.0f, 0.0f, -3.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	mCamera = new Camera(glm::vec3(0.0f, 0.0f, -3.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
 	// set render-specific controls
 	spriteRenderer = new SpriteRenderer(ResourceManager::getShader("sprite"));
-	modelRenderer = new ModelRenderer(*defaultMat->getShader());
-	renderer = new Renderer();
-	renderer->init(Width, Height);
+	mMeshRenderer = new MeshRenderer();
 
 	// load textures
 	ResourceManager::loadTexture("images/jinx.png", false, "jinx");
@@ -72,12 +70,11 @@ void Game::update(float deltaTime)
 void Game::render()
 {
 	//glDisable(GL_DEPTH_TEST);
-	modelRenderer->drawModel(ResourceManager::getMesh("bunny"), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f));
+	//modelRenderer->drawModel(ResourceManager::getMesh("bunny"), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f));
 
 	glm::mat4 transform = glm::mat4(1.0f);
 	transform = glm::translate(transform, glm::vec3(0.0f, 0.0f, 0.0f));
-	renderer->push(&ResourceManager::getMesh("bunny"), defaultMat, transform);
-	renderer->render(camera);
+	mMeshRenderer->drawMesh(&ResourceManager::getMesh("bunny"), &mDefaultMat->getShader(), transform);
 
 	glDisable(GL_DEPTH_TEST); // Disable depth testing for sprite rendering
 	spriteRenderer->drawSprite(ResourceManager::getTexture("jinx"), glm::vec2(100.0f, 100.0f), glm::vec2(100.0f, 150.0f));

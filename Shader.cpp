@@ -11,12 +11,18 @@ Shader& Shader::use()
 	return *this;
 }
 
+void Shader::Use()
+{
+	glUseProgram(ID);
+}
+
 void Shader::compile(const char* vertexSrc, const char* fragmentSrc, const char* geometrySrc)
 {
 	// Create shaders
-	GLuint vertex = glCreateShader(GL_VERTEX_SHADER);
-	GLuint 	fragment = glCreateShader(GL_FRAGMENT_SHADER);
-	GLuint 	geometry = glCreateShader(GL_GEOMETRY_SHADER);
+	unsigned int vertex = glCreateShader(GL_VERTEX_SHADER);
+	unsigned int fragment = glCreateShader(GL_FRAGMENT_SHADER);
+	unsigned int geometry = glCreateShader(GL_GEOMETRY_SHADER);
+	ID = glCreateProgram();
 
 	GLint success = GL_FALSE;
 	int infoLogLength;
@@ -69,32 +75,29 @@ void Shader::compile(const char* vertexSrc, const char* fragmentSrc, const char*
 	}
 
 	// Link compiled vertex and fragment shaders into shader program
-	GLuint programID = glCreateProgram();
-	glAttachShader(programID, vertex);
-	glAttachShader(programID, fragment);
-	if (geometrySrc != nullptr) glAttachShader(programID, geometry);
-	glLinkProgram(programID);
+	glAttachShader(ID, vertex);
+	glAttachShader(ID, fragment);
+	if (geometrySrc != nullptr) glAttachShader(ID, geometry);
+	glLinkProgram(ID);
 
 	// Check the program
-	glGetProgramiv(programID, GL_LINK_STATUS, &success);
-	glGetProgramiv(programID, GL_INFO_LOG_LENGTH, &infoLogLength);
+	glGetProgramiv(ID, GL_LINK_STATUS, &success);
+	glGetProgramiv(ID, GL_INFO_LOG_LENGTH, &infoLogLength);
 	if (!success)
 	{
 		std::vector<char> programErrorMessage(infoLogLength + 1);
-		glGetProgramInfoLog(programID, infoLogLength, NULL, &programErrorMessage[0]);
+		glGetProgramInfoLog(ID, infoLogLength, NULL, &programErrorMessage[0]);
 		std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << &programErrorMessage[0] << std::endl;
 	}
 
 	// Shader objects are now no longer needed
-	glDetachShader(programID, vertex);
-	glDetachShader(programID, fragment);
-	if (geometrySrc != nullptr) glDetachShader(programID, geometry);
+	//glDetachShader(ID, vertex);
+	//glDetachShader(ID, fragment);
+	//if (geometrySrc != nullptr) glDetachShader(ID, geometry);
 
 	glDeleteShader(vertex);
 	glDeleteShader(fragment);
 	if (geometrySrc != nullptr) glDeleteShader(geometry);
-
-	this->ID = programID;
 }
 
 void Shader::setInt(const std::string& name, int value, bool useShader)

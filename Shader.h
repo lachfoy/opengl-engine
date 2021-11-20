@@ -9,10 +9,12 @@
 class Shader
 {
 public:
-	GLuint ID;
+	unsigned int ID;
 
-	Shader() { ID = 0; }
+	Shader() {}
 	Shader& use();
+
+	void Use();
 
 	void compile(const char* vertexSrc, const char* fragmentSrc, const char* geometrySrc = nullptr);
 

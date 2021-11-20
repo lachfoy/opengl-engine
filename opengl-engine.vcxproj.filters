@@ -49,7 +49,7 @@
     <ClCompile Include="glad.c">
       <Filter>opengl-engine\glad</Filter>
     </ClCompile>
-    <ClCompile Include="ModelRenderer.cpp">
+    <ClCompile Include="MeshRenderer.cpp">
       <Filter>opengl-engine\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
@@ -76,9 +76,6 @@
     <ClCompile Include="Cube.cpp">
       <Filter>opengl-engine\Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer.cpp">
-      <Filter>opengl-engine\Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="Plane.cpp">
       <Filter>opengl-engine\Mesh</Filter>
     </ClCompile>
@@ -99,7 +96,7 @@
     <ClInclude Include="ResourceManager.h">
       <Filter>opengl-engine</Filter>
     </ClInclude>
-    <ClInclude Include="ModelRenderer.h">
+    <ClInclude Include="MeshRenderer.h">
       <Filter>opengl-engine\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
@@ -122,9 +119,6 @@
     </ClInclude>
     <ClInclude Include="Cube.h">
       <Filter>opengl-engine\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>opengl-engine\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="Plane.h">
       <Filter>opengl-engine\Mesh</Filter>

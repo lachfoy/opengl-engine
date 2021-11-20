@@ -3,9 +3,8 @@
 #include "ResourceManager.h"
 #include "SpriteRenderer.h"
 #include "Mesh.h"
-#include "ModelRenderer.h"
+#include "MeshRenderer.h"
 #include "Material.h"
-#include "Renderer.h"
 
 enum GameState
 {
@@ -22,10 +21,9 @@ public:
 	bool KeysProcessed[1024];
 	unsigned int Width, Height;
 	SpriteRenderer* spriteRenderer;
-	ModelRenderer* modelRenderer;
-	Renderer* renderer;
-	Material* defaultMat;
-	Camera* camera;
+	MeshRenderer* mMeshRenderer;
+	Material* mDefaultMat;
+	Camera* mCamera;
 
 	Game(unsigned int width, unsigned int height);
 	~Game();
